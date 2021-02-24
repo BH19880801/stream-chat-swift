@@ -126,7 +126,7 @@ open class _ChatVC<ExtraData: ExtraDataTypes>: _ViewController,
         messageList.view.leadingAnchor.pin(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         messageList.view.trailingAnchor.pin(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         messageList.view.topAnchor.pin(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        messageList.view.bottomAnchor.pin(equalTo: messageComposerViewController.view.topAnchor).isActive = true
+        messageList.view.bottomAnchor.pin(equalTo: view.bottomAnchor, constant: -130).isActive = true
 
         messageComposerViewController.view.leadingAnchor.pin(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
             .isActive = true

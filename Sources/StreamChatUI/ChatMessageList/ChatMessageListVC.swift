@@ -82,7 +82,7 @@ open class _ChatMessageListVC<ExtraData: ExtraDataTypes>: _ViewController,
         collection.keyboardDismissMode = .onDrag
         collection.dataSource = self
         collection.delegate = self
-        collection.isHidden = true
+//        collection.isHidden = true
 
         return collection
     }()
@@ -104,11 +104,11 @@ open class _ChatMessageListVC<ExtraData: ExtraDataTypes>: _ViewController,
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if hideInitialLayout {
-            collectionView.reloadData()
-            collectionView.isHidden = false
-            hideInitialLayout = false
-        }
+//        if hideInitialLayout {
+//            collectionView.reloadData()
+//            collectionView.isHidden = false
+//            hideInitialLayout = false
+//        }
     }
 
     override open func setUp() {
@@ -158,18 +158,26 @@ open class _ChatMessageListVC<ExtraData: ExtraDataTypes>: _ViewController,
 
     public func updateMessages(with changes: [ListChange<_ChatMessage<ExtraData>>], completion: ((Bool) -> Void)? = nil) {
         collectionView.performBatchUpdates {
+            var inserts = [IndexPath]()
+            var deletions = [IndexPath]()
+            var updates = [IndexPath]()
+            
             for change in changes {
                 switch change {
                 case let .insert(_, index):
-                    collectionView.insertItems(at: [index])
+                    inserts.append(index)
                 case let .move(_, fromIndex, toIndex):
                     collectionView.moveItem(at: fromIndex, to: toIndex)
                 case let .remove(_, index):
-                    collectionView.deleteItems(at: [index])
+                    deletions.append(index)
                 case let .update(_, index):
-                    collectionView.reloadItems(at: [index])
+                    updates.append(index)
                 }
             }
+            
+            collectionView.insertItems(at: inserts)
+            collectionView.deleteItems(at: deletions)
+            collectionView.reloadItems(at: updates)
         } completion: { flag in
             completion?(flag)
             self.scrollToMostRecentMessageIfNeeded()

@@ -101,7 +101,12 @@ open class _CollectionViewCell: UICollectionViewCell, AppearanceSetting, Customi
     
     override open func didMoveToSuperview() {
         super.didMoveToSuperview()
-        guard !isInitialized, superview != nil else { return }
+        guard superview != nil else { return }
+        streamSetup()
+    }
+    
+    func streamSetup() {
+        guard !isInitialized else { return }
         
         isInitialized = true
         

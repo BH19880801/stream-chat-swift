@@ -89,9 +89,14 @@ open class ChatMessageListCollectionViewLayout: UICollectionViewLayout {
         forPreferredLayoutAttributes preferredAttributes: UICollectionViewLayoutAttributes,
         withOriginalAttributes originalAttributes: UICollectionViewLayoutAttributes
     ) -> Bool {
-        let idx = originalAttributes.indexPath.item
-        return preferredAttributes.frame.minY != currentItems[idx].offset
-            || preferredAttributes.frame.height != currentItems[idx].height
+        return true
+//        let idx = originalAttributes.indexPath.item
+//        return preferredAttributes.frame.minY != currentItems[idx].offset
+//            || preferredAttributes.frame.height != currentItems[idx].height
+    }
+    
+    open override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+        (collectionView?.bounds.width ?? newBounds.width) == newBounds.width
     }
 
     override open func invalidationContext(
@@ -222,7 +227,8 @@ open class ChatMessageListCollectionViewLayout: UICollectionViewLayout {
         }
 
         // scroll to make first item visible
-        cv.contentOffset.y = currentItems[0].maxY - cv.bounds.height + cv.contentInset.bottom
+//        cv.contentOffset.y = currentItems[0].maxY - cv.bounds.height + cv.contentInset.bottom
+        cv.scrollToItem(at: IndexPath(item: 0, section: 0), at: .bottom, animated: false)
     }
 
     override open func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
