@@ -200,6 +200,7 @@ open class ChatMessageListCollectionViewLayout: UICollectionViewLayout {
         disappearingItems.removeAll()
         animatingAttributes.removeAll()
         super.finalizeCollectionViewUpdates()
+        collectionView?.scrollToItem(at: IndexPath(item: 0, section: 0), at: .bottom, animated: false)
         // for some reason when adding / deleting items cv do not reload attributes for rows out of view
         // this will force reload
         invalidateLayout()
