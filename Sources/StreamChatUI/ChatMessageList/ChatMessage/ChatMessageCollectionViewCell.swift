@@ -82,8 +82,6 @@ open class _СhatMessageCollectionViewCell<ExtraData: ExtraDataTypes>: _Collecti
         prototype.streamSetup()
         prototype.frame.size = targetSize
         prototype.updateContent()
-        prototype.layoutIfNeeded()
-        prototype.contentView.layoutIfNeeded()
         preferredAttributes.frame.size = prototype.contentView.systemLayoutSizeFitting(
             targetSize,
             withHorizontalFittingPriority: .required,
